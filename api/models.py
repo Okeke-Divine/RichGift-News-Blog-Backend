@@ -4,13 +4,18 @@ from django.db import models
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=50, default="")
+    user_fname = models.CharField(max_length=50, default="")
+    user_lname = models.CharField(max_length=50, default="")
     user_profile_image_url = models.TextField(default="")
+
+    def __str__(self):
+        return self.user_name
 
 
 class Posts(models.Model):
     post_id = models.AutoField(primary_key=True)
-    post_source = models.CharField(max_length=255, default="")
-    post_source_id = models.CharField(max_length=255, default="")
+    post_source = models.CharField(max_length=255, null=True)
+    post_source_id = models.CharField(max_length=255, null=True)
     post_author = models.CharField(max_length=255, default="")
     post_title = models.TextField(default="")
     post_description = models.TextField(default="")
