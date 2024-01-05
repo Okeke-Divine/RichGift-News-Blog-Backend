@@ -14,8 +14,8 @@ class User(models.Model):
 
 class Posts(models.Model):
     post_id = models.AutoField(primary_key=True)
-    post_source = models.CharField(max_length=255, null=True)
-    post_source_id = models.CharField(max_length=255, null=True)
+    post_source = models.CharField(max_length=255, default="")
+    post_source_id = models.CharField(max_length=255,default="")
     post_author = models.CharField(max_length=255, default="")
     post_title = models.TextField(default="")
     post_description = models.TextField(default="")
@@ -23,7 +23,7 @@ class Posts(models.Model):
     url_to_image = models.TextField(default="")
     post_content = models.TextField(default="")
     post_slug = models.CharField(max_length=255, default="")
-    time_created = models.DateTimeField()
+    time_created = models.DateTimeField(null=True)
     time_created_text = models.CharField(max_length=255, default="")
     net_views = models.IntegerField(default=0)
 
@@ -33,10 +33,10 @@ class Posts(models.Model):
 
 class Comments(models.Model):
     comment_id = models.AutoField(primary_key=True)
-    post_id = models.ForeignKey(Posts, on_delete=models.CASCADE,default="0")
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,default="0")
+    post_id = models.ForeignKey(Posts, on_delete=models.CASCADE, null=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,  null=True)
     comment_text = models.TextField(default="")
-    time_created = models.DateTimeField()
+    time_created = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.comment_text
